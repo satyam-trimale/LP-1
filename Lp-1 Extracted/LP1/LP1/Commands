@@ -1,0 +1,42 @@
+----------------------------------------------------
+
+# install Pytho 
+sudo apt update
+sudo apt install python3
+
+# to run python file
+python3 --version
+python3 yourfileName.py
+
+# to install Tkinter Library
+sudo apt install python3-tk
+
+-----------------------------------------------------
+
+# install Java
+sudo apt install openjdk-17-jdk
+
+# To run java file
+java --version
+javac fileName.java
+java fileName
+
+-----------------------------------------------------
+
+http://github.com/yash-wavhal/spos
+
+-----------------------------------------------------
+# Pass 1 - (Input Text)
+
+START 100
+MOV AREG A
+MOV BREG B
+MOV CREG =2
+MOV DREG =3
+ADD AREG BREG
+SUB AREG A
+A DC 05
+B DS 03
+END
+
+-----------------------------------------------------------
