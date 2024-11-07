@@ -1,0 +1,90 @@
+In Shortest Job First (SJF) Non-Preemptive scheduling, the process with the shortest burst time is selected for execution when the CPU is free, and it runs to completion without interruption. This scheduling algorithm minimizes the average waiting time for processes with shorter burst times, but it does not allow for any interruptions once a process starts executing.
+
+Theory Points for Non-Preemptive SJF Scheduling
+Definition of Non-Preemptive SJF (Shortest Job First):
+
+SJF is a scheduling algorithm that selects the process with the shortest burst time for execution.
+In the non-preemptive version, once a process starts executing, it cannot be interrupted until it finishes.
+Characteristics:
+
+Non-Preemptive: No interruption once a process starts execution, unlike preemptive scheduling.
+Static Scheduling: Once a process is chosen, it runs to completion.
+Advantages:
+
+Minimizes the average waiting time for processes with varied burst times.
+Easy to implement as there are no context switches due to preemption.
+Disadvantages:
+
+Starvation: Processes with longer burst times may experience starvation if short processes continue to arrive.
+Not suitable for real-time systems: Where immediate response may be required.
+Terminology:
+
+Arrival Time (AT): The time at which a process is ready to execute.
+Burst Time (BT): The CPU time required by a process.
+Completion Time (CT): The time when a process completes execution.
+Turnaround Time (TAT): Total time from arrival to completion (TAT = CT - AT).
+Waiting Time (WT): Time a process spends waiting (WT = TAT - BT).
+Goal:
+
+To minimize the average waiting time and average turnaround time by selecting the shortest job available.
+
+
+
+
+
+
+Program to Simulate Non-Preemptive SJF Scheduling in C++
+Let’s write a C++ program for the given process set:
+
+Processes:
+P1 with Arrival Time = 10, Burst Time = 2
+P2 with Arrival Time = 0, Burst Time = 10
+P3 with Arrival Time = 8, Burst Time = 4
+P4 with Arrival Time = 5, Burst Time = 5
+
+
+
+
+
+
+
+
+Explanation of the Code
+Process Structure:
+
+Each Process has attributes for arrival time, burst time, completion time, turnaround time, waiting time, and a flag (isCompleted) to mark if it has completed.
+Sorting by Arrival Time:
+
+Processes are initially sorted by arrival time to help with scheduling decisions.
+SJF Non-Preemptive Calculation (calculateSJFNonPreemptive function):
+
+A loop simulates the CPU execution timeline until all processes are completed.
+At each currentTime, the algorithm finds the process with the shortest burst time that has arrived and is not yet completed.
+If no process is ready, currentTime is incremented until a process arrives.
+Once a process is selected, it runs to completion, and currentTime is updated accordingly.
+The selected process’s completionTime, turnaroundTime, and waitingTime are calculated, and it is marked as completed.
+Display Function:
+
+The results, including arrival time, burst time, completion time, turnaround time, and waiting time, are displayed for each process.
+Sample Output
+The program will output a table similar to this:
+
+arduino
+Copy code
+Process	AT	BT	CT	TAT	WT
+P1	10	2	12	2	0
+P2	0	10	10	10	0
+P3	8	4	16	8	4
+P4	5	5	15	10	5
+For example:
+
+Process P1:
+Arrival Time (AT): 10
+Burst Time (BT): 2
+Completion Time (CT): 12
+Turnaround Time (TAT): 2 (12 - 10)
+Waiting Time (WT): 0 (2 - 2)
+Each process's Completion Time, Turnaround Time, and Waiting Time are calculated and displayed, showing the non-preemptive SJF scheduling in action.
+
+Conclusion
+This program simulates Non-Preemptive Shortest Job First (SJF) scheduling, demonstrating the scheduling order, turnaround time, and waiting time for each process. By selecting the shortest job available without interruption, this algorithm minimizes the average waiting time, though it may allow longer waiting times for processes with longer burst times if shorter processes keep arriving.

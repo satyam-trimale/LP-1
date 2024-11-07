@@ -1,0 +1,109 @@
+Theory Points for the Reader-Writer Problem
+Definition of the Reader-Writer Problem:
+
+The Reader-Writer problem is a classical synchronization problem involving shared data accessed by multiple threads.
+Readers: Threads that only read the shared data without modifying it.
+Writers: Threads that modify the shared data. Only one writer should access the shared data at a time to prevent data inconsistency.
+Purpose:
+
+The purpose is to design a solution that allows multiple readers to access the data simultaneously but restricts writers to exclusive access.
+This avoids race conditions and ensures data consistency, especially when multiple readers and writers try to access the shared resource concurrently.
+Challenges:
+
+Synchronizing readers and writers so that:
+Multiple readers can read simultaneously.
+Only one writer can write at a time.
+No reader can read while a writer is writing.
+Preventing race conditions, deadlock, and starvation (especially writer starvation).
+Synchronization Tools Used:
+
+Semaphore: A synchronization primitive that restricts access to a shared resource.
+Used here to control access to the critical section (shared data) for writers.
+Typically implemented as a counting semaphore that can lock and release access.
+Mutex (Mutual Exclusion Lock): A lock used to manage access to shared variables or critical sections.
+Ensures that only one thread can access or modify readerCount at a time.
+Solution Structure:
+
+Shared Data and Reader Count:
+The shared data represents the resource that both readers and writers access.
+readerCount keeps track of the number of readers currently accessing the data.
+Critical Sections:
+Readers: Multiple readers can be in the reading section simultaneously if there are no writers.
+Writers: Only one writer is allowed in the writing section at a time, ensuring exclusive access.
+Solution Mechanism:
+
+Readers’ Entry and Exit:
+When a reader enters, it increments readerCount.
+The first reader acquires the wrt semaphore, blocking any writers until all readers are done.
+The last reader releases wrt, allowing writers access once no readers are left.
+Writers’ Entry and Exit:
+Writers acquire the wrt semaphore before writing, ensuring exclusive access to the resource.
+Once done, the writer releases wrt, allowing either other writers or readers to proceed.
+Prioritization (Readers-First Solution):
+
+This approach prioritizes readers over writers:
+As long as there is at least one reader, writers must wait for all readers to finish.
+This solution may lead to writer starvation if there’s a continuous stream of readers.
+Benefits and Applications:
+
+Provides a practical solution for concurrent applications, especially those requiring heavy read operations (e.g., database reads).
+Reduces wait time and resource contention by allowing multiple readers, improving system efficiency when read operations are predominant.
+Drawbacks and Considerations:
+
+In a readers-first solution, there’s potential for writer starvation if readers continuously access the resource.
+An alternative would be a writers-priority or fair solution to balance access between readers and writers.
+
+
+
+
+
+
+
+The Reader-Writer Problem is a classical synchronization problem that involves managing access to shared resources by multiple readers and writers. This problem is commonly solved using mutexes and semaphores to ensure that:
+
+Multiple readers can read the shared data simultaneously.
+Only one writer can write to the shared data at a time.
+When a writer is writing, no other reader or writer is allowed to access the shared data.
+Types of Reader-Writer Problem
+First Variation: Readers have priority over writers, meaning no writer can start writing if there are already readers accessing the resource.
+Second Variation: Writers have priority over readers, meaning no new readers are allowed if a writer is waiting.
+Here, we'll implement a solution for the first variation, where readers have priority.
+
+Solution using Mutex and Semaphores in C++
+This solution ensures that:
+
+Multiple readers can access the resource at once.
+Writers get exclusive access when no readers are present.
+Code Explanation
+Mutex: Used to control access to the reader count variable.
+Semaphore (wrt): Used to control access to the shared resource, ensuring only one writer or multiple readers at a time.
+
+
+
+
+
+
+
+
+
+
+Explanation of Code Sections
+Reader Function:
+
+Each reader increments readerCount when starting and decrements it when finished.
+The first reader locks the wrt semaphore, ensuring writers cannot access the resource while readers are active.
+The last reader releases wrt, allowing a writer to proceed if there are no other readers.
+Writer Function:
+
+Each writer waits to acquire the wrt semaphore before writing.
+Only one writer can write at a time, and no readers can read while a writer holds wrt.
+After writing, the writer releases wrt, allowing other readers or writers to proceed.
+Main Function:
+
+Spawns threads for multiple readers and writers.
+Each thread runs in a loop, simulating continuous reading and writing access to the shared resource.
+Key Points
+Mutual Exclusion: Only one writer or multiple readers can access the resource simultaneously, enforced by the wrt semaphore and readerCountMutex.
+Readers' Priority: As long as there are readers, writers wait.
+Semaphores and Mutexes: Used effectively to synchronize access, preventing race conditions and ensuring consistent, thread-safe operations on shared resources.
+This code provides a basic implementation of the Reader-Writer problem with readers given priority over writers, using C++11 standard threading libraries.

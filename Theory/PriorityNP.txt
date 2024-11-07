@@ -1,0 +1,101 @@
+In Priority Scheduling (Non-Preemptive), processes are assigned a priority, and the CPU is allocated to the process with the highest priority. In this case, the process with the lowest priority value is given higher priority, and once a process starts executing, it runs to completion.
+
+Theory Points for Non-Preemptive Priority Scheduling
+Definition:
+
+In Non-Preemptive Priority Scheduling, the process with the highest priority (lowest priority number) is selected for execution.
+Once a process starts executing, it cannot be preempted, meaning it runs to completion.
+Characteristics:
+
+Non-Preemptive: Once the CPU starts executing a process, it continues until the process finishes execution.
+Priority-Based: Each process is assigned a priority. The process with the highest priority (lowest priority number) is executed first.
+Advantages:
+
+Simple to implement.
+Suitable for batch jobs where priorities can be assigned based on factors like importance or urgency.
+Disadvantages:
+
+Starvation: Lower priority processes may starve if higher priority processes keep arriving.
+Difficult to manage dynamically: In real-time systems, priority adjustment might be needed.
+Terminology:
+
+Arrival Time (AT): Time when a process arrives in the ready queue.
+Burst Time (BT): Time required by a process for execution.
+Priority: A number assigned to each process indicating its priority.
+Completion Time (CT): The time at which a process finishes execution.
+Turnaround Time (TAT): Time from arrival to completion (TAT = CT - AT).
+Waiting Time (WT): Time spent by a process waiting in the ready queue (WT = TAT - BT).
+
+
+
+
+
+
+
+
+Program to Simulate Non-Preemptive Priority Scheduling in C++
+Below is the C++ code to simulate Priority Scheduling (Non-Preemptive) for the given processes:
+
+Processes:
+P1 with Arrival Time = 10, Burst Time = 2, Priority = 3
+P2 with Arrival Time = 0, Burst Time = 10, Priority = 2
+P3 with Arrival Time = 8, Burst Time = 4, Priority = 4
+P4 with Arrival Time = 5, Burst Time = 5, Priority = 1
+
+
+
+
+
+Explanation of the Code
+Process Structure:
+
+The Process structure contains the arrival time, burst time, priority, completion time, turnaround time, waiting time, and a boolean to track if the process has completed.
+Sorting by Arrival Time:
+
+Before running the scheduling algorithm, the processes are sorted based on their arrival time.
+Priority Scheduling Algorithm (calculatePriorityNonPreemptive function):
+
+A loop is used to simulate CPU scheduling until all processes are completed.
+At each time step (currentTime), the algorithm selects the process with the highest priority (lowest priority value) that has already arrived and is not yet completed.
+If no process is ready to execute, the currentTime is incremented.
+Once a process is selected, it runs to completion and updates the completionTime, turnaroundTime, and waitingTime for that process.
+Display Function:
+
+After the scheduling is complete, the results (Arrival Time, Burst Time, Priority, Completion Time, Turnaround Time, Waiting Time) for each process are displayed in tabular format.
+
+
+
+
+
+
+
+
+
+Sample Output
+arduino
+Copy code
+Process	AT	BT	Priority	CT	TAT	WT
+P1	10	2	3	12	2	0
+P2	0	10	2	10	10	0
+P3	8	4	4	16	8	4
+P4	5	5	1	20	15	10
+Explanation:
+
+Process P1:
+
+Arrival Time (AT): 10
+Burst Time (BT): 2
+Priority: 3
+Completion Time (CT): 12
+Turnaround Time (TAT): 2 (12 - 10)
+Waiting Time (WT): 0 (2 - 2)
+Process P2:
+
+Arrival Time (AT): 0
+Burst Time (BT): 10
+Priority: 2
+Completion Time (CT): 10
+Turnaround Time (TAT): 10 (10 - 0)
+Waiting Time (WT): 0 (10 - 10)
+Conclusion
+This program simulates Non-Preemptive Priority Scheduling, where the CPU selects the process with the highest priority (lowest priority number) for execution. Each process executes to completion without preemption, and the algorithm calculates and displays the completion time, turnaround time, and waiting time for each process.

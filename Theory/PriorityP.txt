@@ -1,0 +1,98 @@
+In Priority Scheduling (Preemptive), the CPU is allocated to the process with the highest priority (lowest priority number). If a new process arrives with a higher priority than the currently running process, the CPU is preemptively switched to the new process.
+
+Theory Points for Preemptive Priority Scheduling
+Definition:
+
+In Preemptive Priority Scheduling, the process with the highest priority (lowest priority number) is selected for execution.
+If a new process arrives with a higher priority, it preempts the currently executing process.
+Characteristics:
+
+Preemptive: If a new process arrives with higher priority, it can interrupt the running process.
+Priority-Based: Each process is assigned a priority, and the process with the highest priority (lowest priority number) is executed first.
+Advantages:
+
+Reduces average waiting time by ensuring high-priority processes execute first.
+Helps in scenarios where real-time processes need immediate attention.
+Disadvantages:
+
+Starvation: Low-priority processes may never get a chance to execute if higher-priority processes keep arriving.
+Overhead: Frequent context switching might add overhead.
+Terminology:
+
+Arrival Time (AT): Time when a process arrives in the ready queue.
+Burst Time (BT): Time required by a process for execution.
+Priority: A number assigned to each process indicating its priority.
+Completion Time (CT): Time at which a process finishes execution.
+Turnaround Time (TAT): Time from arrival to completion (TAT = CT - AT).
+Waiting Time (WT): Time spent by a process waiting in the ready queue (WT = TAT - BT).
+
+
+
+
+
+
+
+
+
+Program to Simulate Preemptive Priority Scheduling in C++
+Below is the C++ code to simulate Preemptive Priority Scheduling for the given processes:
+
+Processes:
+P1 with Arrival Time = 10, Burst Time = 2, Priority = 3
+P2 with Arrival Time = 0, Burst Time = 10, Priority = 2
+P3 with Arrival Time = 8, Burst Time = 4, Priority = 4
+P4 with Arrival Time = 5, Burst Time = 5, Priority = 1
+
+
+
+
+
+
+
+
+
+Explanation of the Code
+Process Structure:
+
+The Process structure contains attributes like arrival time, burst time, priority, remaining burst time (for preemption), completion time, turnaround time, waiting time, and a boolean to track if the process has completed.
+Sorting by Arrival Time:
+
+Before running the scheduling algorithm, the processes are sorted based on their arrival time.
+Priority Preemptive Scheduling Algorithm (calculatePriorityPreemptive function):
+
+The algorithm uses a loop to simulate CPU scheduling.
+At each time step (currentTime), the algorithm selects the process with the highest priority (lowest priority value) that has already arrived and is not yet completed.
+The selected process executes for one unit of time. If a process has remaining time, it will be preempted and re-queued.
+If the selected process finishes, its completionTime, turnaroundTime, and waitingTime are calculated, and it is marked as completed.
+This process continues until all processes are completed.
+Display Function:
+
+After the scheduling is complete, the results (Arrival Time, Burst Time, Priority, Completion Time, Turnaround Time, Waiting Time) for each process are displayed in tabular format.
+Sample Output
+arduino
+Copy code
+Process	AT	BT	Priority	CT	TAT	WT
+P1	10	2	3	12	2	0
+P2	0	10	2	19	19	9
+P3	8	4	4	16	8	4
+P4	5	5	1	20	15	10
+Explanation:
+
+Process P1:
+
+Arrival Time (AT): 10
+Burst Time (BT): 2
+Priority: 3
+Completion Time (CT): 12
+Turnaround Time (TAT): 2 (12 - 10)
+Waiting Time (WT): 0 (2 - 2)
+Process P2:
+
+Arrival Time (AT): 0
+Burst Time (BT): 10
+Priority: 2
+Completion Time (CT): 19
+Turnaround Time (TAT): 19 (19 - 0)
+Waiting Time (WT): 9 (19 - 10)
+Conclusion
+This program simulates Preemptive Priority Scheduling, where the CPU selects the process with the highest priority (lowest priority number) for execution. If a new process arrives with a higher priority, it preempts the currently running process. Each process executes for one unit of time, and once completed, the relevant time metrics are calculated and displayed.

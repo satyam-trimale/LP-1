@@ -1,0 +1,130 @@
+Deadlock Avoidance Algorithm: Banker's Algorithm
+The Banker's Algorithm is a classic deadlock avoidance algorithm that tests the system's state for safety before allocating resources. The system uses this algorithm to ensure that resource allocation does not result in a deadlock. It only grants a resource request if the system remains in a safe state.
+
+A safe state is one where there is a sequence of processes such that every process can obtain all the resources it needs, execute, and then release the resources, leaving enough resources for other processes to proceed.
+
+Problem:
+We need to check if the system remains in a safe state by analyzing resource allocation using the Banker's algorithm. The algorithm works with the following data:
+
+Available: The number of available resources of each type.
+Max: The maximum demand of each process for each resource type.
+Allocation: The number of resources currently allocated to each process.
+Need: The remaining resource needs for each process (calculated as Need[i][j] = Max[i][j] - Allocation[i][j]).
+Example:
+Let’s consider the following example to simulate the Banker's Algorithm:
+
+Processes (P1, P2, P3)
+Resources (A, B)
+Total Resources: A = 10, B = 5
+Available Resources: A = 3, B = 2
+Allocation Matrix:
+makefile
+Copy code
+P1: (2, 1)
+P2: (3, 2)
+P3: (2, 1)
+Maximum Resources Needed by Processes:
+makefile
+Copy code
+P1: (3, 2)
+P2: (3, 3)
+P3: (3, 2)
+
+
+
+
+
+
+
+
+
+
+
+Explanation of the Code:
+Data Structures:
+
+Available: This vector stores the available resources.
+Max: This 2D vector stores the maximum demand of each process for each resource type.
+Allocation: This 2D vector keeps track of the resources currently allocated to each process.
+Need: This 2D vector stores the remaining resources needed by each process, calculated as Need[i][j] = Max[i][j] - Allocation[i][j].
+Algorithm:
+
+Step 1: The algorithm starts by calculating the Need matrix.
+Step 2: It then checks if the system is in a safe state using the isSafeState function.
+The isSafeState function iterates over the processes and tries to find a process whose remaining resource needs can be satisfied by the available resources.
+If such a process is found, it "finishes" the process by adding its allocated resources back to the available resources.
+This is repeated until all processes are either finished or no more processes can finish, indicating a potential deadlock.
+Output:
+
+The program outputs whether the system is in a safe state or not in a safe state based on the calculations.
+Sample Output:
+csharp
+Copy code
+The system is in a safe state.
+Explanation of Output:
+The output indicates whether the system is in a safe state after evaluating resource allocation requests and current available resources using the Banker's algorithm.
+If the system can find an execution order of processes such that all resources are allocated and processes can complete, it will declare the system as safe. Otherwise, it will declare the system unsafe, indicating a potential deadlock.
+Key Points of the Banker's Algorithm:
+Safe State: A system is in a safe state if there is at least one sequence of processes that allows all processes to complete without causing a deadlock.
+Deadlock Avoidance: The Banker's algorithm avoids deadlock by simulating the allocation of resources and checking for safety before actually allocating resources to processes.
+Resource Allocation: Before granting a resource request, the system checks whether the allocation will lead the system into an unsafe state.
+Efficiency: While the Banker's algorithm can prevent deadlocks, it may not be as efficient in terms of performance for large systems because of its need to evaluate safety after every request.
+Applications: This algorithm is mainly used in operating systems for resource allocation, particularly when multiple processes need to share limited resources.
+This program helps simulate how operating systems can handle deadlock avoidance using the Banker's algorithm, ensuring that resources are allocated only when it is safe to do so.
+
+
+
+
+
+
+
+
+
+
+Theory Points for Deadlock Avoidance: Banker's Algorithm
+Deadlock Avoidance:
+
+The primary goal of deadlock avoidance is to ensure that resource allocation never leads to a situation where a process is blocked indefinitely due to circular waiting.
+The Banker's Algorithm is a method used to avoid deadlocks by carefully analyzing the system's resource allocation state.
+Safe and Unsafe States:
+
+A safe state is one where there exists a sequence of processes such that each process can be allocated the resources it needs to complete without causing a deadlock.
+An unsafe state is one where no such sequence exists, and the allocation of resources could eventually lead to a deadlock.
+The Banker's Algorithm:
+
+This algorithm evaluates the system's state before granting resource requests. It checks whether granting a request would keep the system in a safe state.
+The algorithm works by simulating resource allocation and ensuring that there will always be enough resources for other processes to complete their tasks.
+Data Structures Used:
+
+Available: The available resources in the system.
+Max: The maximum resources each process may require.
+Allocation: The current allocation of resources to processes.
+Need: The remaining resources each process needs to complete.
+Working of Banker's Algorithm:
+
+Step 1: Calculate the Need matrix as the difference between the Max and Allocation matrices.
+Step 2: The system enters a "safety check" phase. The Banker's algorithm will only grant a resource request if, after the allocation, the system remains in a safe state.
+Step 3: To check safety, the algorithm attempts to find a process whose remaining needs can be satisfied with the available resources.
+Step 4: If such a process is found, it is considered as "completed," and its allocated resources are returned to the available pool. The system repeats this process until all processes finish or no safe sequence is found (leading to an unsafe state).
+Safety Check:
+
+The safe sequence is a sequence of processes that can execute without causing a deadlock. If such a sequence can be found, the system is in a safe state. If no sequence is found, the system is in an unsafe state.
+Resource Allocation Strategy:
+
+The Banker's Algorithm ensures that only requests that can be safely satisfied (i.e., requests that will not lead to a deadlock) are granted.
+It "prevents" resource allocation that could cause an unsafe state, thus avoiding potential deadlocks.
+Advantages:
+
+Deadlock Prevention: By ensuring that resources are only allocated when it's safe to do so, the Banker's Algorithm effectively prevents deadlocks from occurring.
+Predictive Approach: It can predict the effect of resource allocation and ensure that deadlocks are avoided in advance.
+Limitations:
+
+Complexity: The algorithm has high overhead because it checks the safety of the system each time a request is made. This makes it less efficient for systems with high resource usage or large numbers of processes.
+Not Suitable for Dynamic Systems: The Banker's Algorithm is static and works best when the system's maximum resource needs are known in advance. In dynamic environments, it is less practical since resource demands can change unpredictably.
+Requires Knowledge of Maximum Demand: It assumes that the maximum resource requirements of processes are known, which may not always be possible in real-world systems.
+Applications:
+
+The Banker's Algorithm is commonly used in systems where multiple processes need to share limited resources, such as in operating systems for process scheduling and resource allocation.
+It is used to handle resource allocation in environments where real-time guarantees are essential, such as embedded systems and database management systems.
+Conclusion:
+The Banker's Algorithm is an effective method for deadlock avoidance in resource allocation. By ensuring that the system is always in a safe state before granting resource requests, it guarantees that deadlock situations will not occur. However, its complexity and reliance on knowing maximum resource requirements make it less suitable for large-scale or dynamic systems.

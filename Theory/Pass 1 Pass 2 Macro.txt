@@ -1,0 +1,49 @@
+In macro processing, **Pass 1** and **Pass 2** of a macro assembler handle the expansion of macros in assembly code. Here’s an outline of each pass:
+
+---
+
+### Pass 1 Macro Processor
+The **Pass 1 Macro Processor** is responsible for defining and storing macros, similar to how Pass 1 of an assembler creates symbol tables. Here are the key tasks:
+
+1. **Macro Definition Table (MDT) Creation**:
+   - Pass 1 identifies all macro definitions in the code and stores them in the **Macro Definition Table (MDT)**.
+   - The MDT holds the statements within each macro, including parameters and any default values if provided.
+
+2. **Macro Name Table (MNT) Creation**:
+   - It stores each macro’s name in the **Macro Name Table (MNT)** along with a pointer to its entry in the MDT.
+   - This allows the assembler to quickly locate and expand the macro definitions when referenced in the code.
+
+3. **Argument and Parameter Processing**:
+   - If macros have parameters, Pass 1 identifies them and records them in the **Argument List Array (ALA)**, which associates arguments with parameters.
+
+4. **Macro Expansion Not Performed**:
+   - Pass 1 does not expand macros during this phase. It only records definitions and parameters in tables, leaving the expansion task for Pass 2.
+
+5. **Intermediate Code Generation**:
+   - Similar to the assembler's Pass 1, a partially processed intermediate code is generated, where macro calls remain unexpanded but are marked for processing in Pass 2.
+
+---
+
+### Pass 2 Macro Processor
+The **Pass 2 Macro Processor** is where the actual macro expansion takes place. Using the information from Pass 1, it substitutes macro calls with their expanded forms.
+
+1. **Macro Expansion**:
+   - Pass 2 scans the intermediate code and expands each macro call by retrieving its definition from the MDT and replacing it in-line.
+   - It uses the ALA to substitute the parameters in the macro definition with the actual arguments provided at the macro call.
+
+2. **Replacement of Macro Calls with Code**:
+   - Each macro call is expanded in the code, and the generated statements replace the macro call with detailed assembly instructions.
+   
+3. **Final Code Generation**:
+   - The fully expanded code is generated as the final output. This code no longer contains any macro calls, only assembly instructions that can be processed directly by the assembler.
+
+4. **Error Detection**:
+   - Pass 2 checks for any errors related to undefined macros or incorrect parameter usage, allowing the programmer to correct issues before the code is passed to the assembler for machine code generation.
+
+---
+
+### Key Differences
+- **Pass 1** focuses on defining macros, storing them in tables, and managing parameters without expanding any macros.
+- **Pass 2** performs the actual macro expansion by replacing each macro call with its corresponding instructions, producing the final expanded code.
+
+Let me know if you need more details on any part, and good luck with your practical!

@@ -1,0 +1,122 @@
+Program to Simulate Page Replacement Algorithm: Least Recently Used (LRU)
+The Least Recently Used (LRU) page replacement algorithm is one of the most commonly used algorithms in memory management. It works by replacing the page that has not been used for the longest period of time. The idea is that if a page hasn't been used in a while, it is less likely to be used in the near future.
+
+Problem:
+Input Reference String: 2 3 2 1 5 2 4 5 3 2 5 2
+Number of Frames: 3
+
+
+
+
+
+
+
+Explanation of the Code:
+Data Structures:
+
+unordered_map pageMap: It stores the pages and their corresponding positions in the list (which acts as the memory frame).
+list frames: This list stores the pages in memory, where the front represents the most recently used page, and the back represents the least recently used page.
+Algorithm:
+
+The algorithm goes through each page in the reference string:
+If the page is already in memory (found in pageMap), it means no page fault occurs. The page is moved to the front of the frames list, indicating it was recently used.
+If the page is not in memory, it causes a page fault. If the memory is full (i.e., the number of pages in frames is equal to numFrames), the least recently used page (the one at the back of the list) is removed from memory. Then the new page is inserted at the front of the list, indicating it is the most recently used page.
+The pageMap is updated to reflect the new position of the page in the list.
+Output:
+
+After processing each page, the program prints the current state of memory (pages in frames).
+The total number of page faults is displayed at the end.
+Sample Output:
+yaml
+Copy code
+Current pages in memory: 2 
+Current pages in memory: 3 2 
+Current pages in memory: 3 2 
+Current pages in memory: 1 3 2 
+Current pages in memory: 1 3 2 
+Current pages in memory: 5 1 3 
+Current pages in memory: 5 1 3 
+Current pages in memory: 4 5 1 
+Current pages in memory: 4 5 3 
+Current pages in memory: 2 4 5 
+Current pages in memory: 2 5 3 
+Current pages in memory: 2 5 3 
+Current pages in memory: 2 5 3 
+Total page faults: 8
+Explanation of Output:
+The output shows the state of memory (i.e., the pages in frames) after each page reference.
+The LRU algorithm ensures that the least recently used page is replaced when a page fault occurs and the memory is full.
+The total number of page faults for the given reference string and 3 frames is 8.
+Key Points of LRU Algorithm:
+Least Recently Used: LRU replaces the page that has not been used for the longest period of time.
+Data Structures:
+A list is used to maintain the order of page access, with the most recently used page at the front.
+An unordered map (hashmap) is used to quickly find the position of a page in the list.
+Page Faults: A page fault occurs when a page that is not currently in memory is accessed. The goal of LRU is to minimize these faults.
+Efficiency: The LRU algorithm has a time complexity of O(1) for both checking and updating the page access order due to the use of hash maps and linked lists.
+Applications:
+Operating Systems: LRU is widely used in modern operating systems for memory management and page replacement.
+Cache Management: LRU is also employed in cache systems (e.g., web browsers, database systems) to decide which data to discard when the cache is full.
+
+
+
+
+
+
+
+Theory for LRU (Least Recently Used) Page Replacement Algorithm:
+Page Replacement:
+
+Page replacement is a mechanism used by the operating system to manage memory when a process accesses a page that is not in memory (a page fault). The operating system must decide which page to remove from memory to accommodate the new page.
+LRU (Least Recently Used):
+
+LRU is a page replacement algorithm that selects the page to be replaced based on the principle that the least recently used page (the page that hasn't been accessed for the longest time) should be replaced.
+The idea behind LRU is that if a page has not been used for a while, it is less likely to be used in the near future compared to pages that were recently accessed.
+How LRU Works:
+
+When a page is accessed:
+If the page is already in memory, it is marked as the most recently used, and no page fault occurs.
+If the page is not in memory (a page fault), and if there is space available in memory (frames), the new page is loaded into an empty frame.
+If the memory is full (all frames are occupied), the page that has not been used for the longest period is removed (i.e., the least recently used page).
+Page Movement: When a page is accessed (either by being found in memory or loaded into memory), it is moved to the front of the list of pages in memory. The front represents the most recently used page, and the back represents the least recently used page.
+Data Structures Used in LRU:
+
+List: A doubly linked list or a regular list can be used to maintain the order of page access. Pages that are recently used are placed at the front of the list, and pages that are not recently used are pushed toward the back.
+Hash Map (unordered_map): This data structure is used to quickly locate the position of a page in the list. It allows constant time complexity for insertion and deletion operations.
+Steps for LRU:
+
+Initialize an empty list to represent the memory frames.
+For each page reference in the reference string:
+If the page is already in memory, move it to the front of the list.
+If the page is not in memory and there is space in the memory frames, add it to the front of the list.
+If the page is not in memory and memory frames are full, remove the page from the back of the list (the least recently used page), and add the new page to the front.
+Track Page Faults: Every time a page is not found in memory and must be replaced, a page fault occurs. The number of page faults is the key metric for evaluating the algorithm's performance.
+Time Complexity:
+
+Searching: Finding whether a page is in memory (using the hash map) takes O(1) time.
+Insertion/Deletion: Removing and adding pages in the list also takes O(1) time, as both operations are handled by the hash map and the list.
+Overall Complexity: Each page reference results in an O(1) operation for both checking and updating the page list.
+Advantages of LRU:
+
+Simplicity: LRU is conceptually simple and easy to implement.
+Efficient: It approximates the optimal page replacement strategy quite closely, making it effective in many real-world scenarios.
+Widely Used: LRU is used in many operating systems, file systems, and hardware cache systems.
+Disadvantages of LRU:
+
+Overhead: Maintaining the order of pages in memory can incur some overhead in terms of time and space, especially in systems with limited resources.
+Not Always Optimal: While LRU is effective, it does not always produce the minimum number of page faults. For instance, it can perform poorly in certain reference string patterns (like if pages are used in a cyclic manner).
+Implementation Complexity: In a high-performance system, maintaining LRU with a list and hash map might be more complex than simpler algorithms like FIFO.
+Applications of LRU:
+
+Operating Systems: LRU is used in operating systems for managing page replacements and optimizing memory utilization.
+CPU Caching: Caching mechanisms that use the LRU strategy ensure that the most recently accessed data is kept in cache, improving performance by reducing access time to frequently used data.
+Database Management Systems: LRU is used in DBMS for buffer management to decide which pages to evict from the buffer pool.
+Comparison with Other Algorithms:
+
+FIFO (First-In-First-Out): FIFO is simpler than LRU but often results in more page faults because it does not consider how recently a page has been accessed.
+OPT (Optimal): The Optimal algorithm minimizes page faults by selecting the page that will not be used for the longest time in the future. LRU tries to approximate this behavior by replacing the least recently used page.
+LFU (Least Frequently Used): LFU replaces the page that has been used the least number of times. LRU focuses on the recency of use, whereas LFU considers the frequency of use.
+Summary:
+
+LRU is an effective page replacement algorithm based on the principle that the least recently used pages are more likely to be replaced.
+It is commonly used in both software and hardware systems to optimize memory usage and minimize page faults, making it an essential concept in memory management systems.

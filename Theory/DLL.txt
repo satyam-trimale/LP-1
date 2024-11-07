@@ -1,0 +1,69 @@
+The **Java Native Interface (JNI)** and **Dynamic Link Library (DLL)** are both related to enabling Java applications to interact with non-Java code or resources.
+
+### Java Native Interface (JNI)
+JNI is a framework that allows Java code to call and be called by native applications and libraries written in other languages, like C or C++. JNI is typically used when:
+- You need to interact with system-level resources or hardware directly, which Java doesn’t provide a built-in way to access.
+- You want to use an existing native library in a Java application.
+
+Using JNI involves:
+1. Writing native methods in Java as placeholders for the actual native code.
+2. Creating a C/C++ implementation of these methods.
+3. Using JNI functions to link the Java code with the native library, which is then loaded at runtime.
+
+#### Example Use Case:
+A Java application might need to access specialized hardware (e.g., sensors) for which a C library is available. By using JNI, the Java code can communicate with this C library and thereby access the hardware.
+
+### Dynamic Link Library (DLL)
+A **Dynamic Link Library (DLL)** is a type of binary file used in Windows operating systems that contains code and data that can be used by multiple programs simultaneously. DLLs are essential in the context of JNI because:
+- They allow native code to be compiled and stored separately from Java code.
+- Java applications can load DLLs at runtime, making them reusable across different applications.
+
+When using JNI on Windows, the native methods you write in C or C++ are usually compiled into a DLL. Then, the Java application can load the DLL using `System.loadLibrary("libraryName");`, which makes the methods in the DLL available to the Java program.
+
+#### Example Use Case:
+You have a computationally heavy algorithm in C++ and compile it into a DLL. Through JNI, you can call this algorithm from your Java application, improving performance by leveraging optimized C++ code.
+
+
+
+
+
+
+Creating a Dynamic Link Library (DLL) for mathematical operations and then testing it using an application program involves using the Java Native Interface (JNI) for Java or Visual Basic (VB) / Visual C++ (VC++) for other Windows-based applications. Here’s the full breakdown:
+
+Theory Points
+Dynamic Link Library (DLL):
+
+A DLL is a file that contains compiled code and data that can be shared among multiple programs. It allows modularization of code and enables reusable libraries.
+DLLs are widely used for implementing low-level operations in languages like C or C++ that other programs can call, including Java via JNI.
+Java Native Interface (JNI):
+
+JNI is a framework that allows Java code to interact with native applications or libraries (like DLLs) written in other languages, such as C/C++.
+It enables Java to call native methods when performance-critical or system-level operations are needed that Java alone cannot achieve.
+Using C/C++ to Create DLL:
+
+Writing the mathematical functions in C/C++ and compiling them into a DLL.
+Functions are declared with the __declspec(dllexport) attribute to allow them to be accessible from other programs.
+Java to DLL via JNI:
+
+Declare native methods in Java that correspond to the C/C++ functions.
+Use System.loadLibrary() to load the DLL in Java.
+Testing the DLL:
+
+Write a Java or C++ application that loads the DLL and calls its functions.
+Pass parameters, execute operations, and display results to verify the DLL functionality.
+
+
+
+
+Explanation of Program Flow
+DLL Creation: The C++ code defines an add function, which takes two integers and returns their sum. Compiling this code produces the MathOperations.dll.
+
+JNI Setup in Java:
+
+In the Java code, the native keyword declares the add method, allowing Java to call this native method.
+The System.loadLibrary() method loads the MathOperations.dll, making the add function available in Java.
+Calling and Testing:
+
+The main method in Java calls the add method, passing two integers.
+The result is then printed to verify that the DLL operation works as expected.
+This demonstrates a simple example of how JNI can be used to integrate a DLL created in C++ with a Java application, allowing cross-language compatibility and efficient mathematical operations.

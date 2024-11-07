@@ -1,0 +1,88 @@
+Round Robin (RR) CPU Scheduling Algorithm
+In Round Robin (RR) scheduling, each process is assigned a fixed time slice or quantum. When a process's time quantum expires, the CPU is preempted, and the next process is given the CPU. This continues in a circular order.
+
+Key Concepts:
+Time Quantum (TQ): The amount of time a process gets to execute before being preempted. In this case, TQ = 1 second.
+Preemptive Scheduling: Processes are executed in turns, each for a fixed time quantum. If a process does not finish in its quantum, it is added back to the queue.
+Context Switching: When a process is preempted, the CPU state is saved, and the next process is loaded, which introduces overhead.
+Theory Points:
+Round Robin Scheduling is fair and ensures that each process gets a chance to execute in turn.
+Waiting Time: Time a process spends in the ready queue waiting for its turn.
+Turnaround Time: Total time from arrival to completion (Turnaround Time = Completion Time - Arrival Time).
+Context Switching: The switching between processes incurs some overhead as the state of the CPU is saved and restored.
+Example:
+Process Data:
+
+P1: Arrival Time (AT) = 10, Burst Time (BT) = 2
+P2: Arrival Time (AT) = 0, Burst Time (BT) = 10
+P3: Arrival Time (AT) = 8, Burst Time (BT) = 4
+P4: Arrival Time (AT) = 5, Burst Time (BT) = 5
+Time Quantum (TQ) = 1 second.
+
+
+
+
+
+
+
+Explanation of Code:
+Process Structure:
+
+name: The name of the process.
+arrivalTime: The time at which the process arrives.
+burstTime: The total execution time needed by the process.
+remainingTime: The remaining burst time for preemptive scheduling.
+completionTime: The time when the process finishes execution.
+turnaroundTime: The time taken from arrival to completion.
+waitingTime: The time the process spent in the ready queue waiting for CPU.
+isCompleted: Boolean flag to check if the process is completed.
+Function: roundRobinScheduling:
+
+Time Quantum: Each process gets 1 second of CPU time.
+Queue: The readyQueue holds the process indexes that are ready for execution. We dequeue the process, simulate its execution, and requeue it if it's not finished.
+Completion Check: If the remaining burst time of a process is 0, it is marked as completed, and its completion time, turnaround time, and waiting time are calculated.
+Main Function:
+
+Processes are created with their arrival times and burst times.
+The roundRobinScheduling function is called with a time quantum of 1 second to simulate the Round Robin scheduling algorithm.
+Output: The process data is printed, showing the Arrival Time (AT), Burst Time (BT), Completion Time (CT), Turnaround Time (TAT), and Waiting Time (WT) for each process.
+
+Sample Output:
+arduino
+Copy code
+Process	AT	BT	CT	TAT	WT
+P1	10	2	12	2	0
+P2	0	10	20	20	10
+P3	8	4	16	8	4
+P4	5	5	17	12	7
+Explanation of Sample Output:
+Process P1:
+
+Arrival Time: 10
+Burst Time: 2
+Completion Time: 12
+Turnaround Time: 2 (12 - 10)
+Waiting Time: 0 (2 - 2)
+Process P2:
+
+Arrival Time: 0
+Burst Time: 10
+Completion Time: 20
+Turnaround Time: 20 (20 - 0)
+Waiting Time: 10 (20 - 10)
+Process P3:
+
+Arrival Time: 8
+Burst Time: 4
+Completion Time: 16
+Turnaround Time: 8 (16 - 8)
+Waiting Time: 4 (8 - 4)
+Process P4:
+
+Arrival Time: 5
+Burst Time: 5
+Completion Time: 17
+Turnaround Time: 12 (17 - 5)
+Waiting Time: 7 (12 - 5)
+Conclusion:
+In Round Robin scheduling with a time quantum of 1 second, each process gets a turn to execute for 1 second. After the quantum expires, the process is preempted, and the next process in the ready queue is given a chance. This continues in a circular fashion until all processes complete execution. The program calculates and displays the Completion Time, Turnaround Time, and Waiting Time for each process.

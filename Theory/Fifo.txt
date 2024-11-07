@@ -1,0 +1,113 @@
+Program to Simulate Page Replacement Algorithm: FIFO (First In, First Out)
+The FIFO (First In, First Out) page replacement algorithm is one of the simplest page replacement algorithms. It works by replacing the oldest page in memory when a new page needs to be loaded, i.e., the page that has been in memory the longest is the first one to be replaced.
+
+Problem:
+Input Reference String: 2 3 2 1 5 2 4 5 3 2 5 2
+Number of Frames: 3
+FIFO Page Replacement Algorithm
+In this algorithm:
+
+When a page is referenced, we check if it is already in one of the frames (pages in memory).
+If the page is not in memory, we replace the oldest page (the one that entered first) with the new page.
+The number of page faults is counted each time a page is replaced.
+
+
+
+
+
+
+
+
+Explanation of the Code:
+Reference String: The input reference string represents the sequence of page accesses. In this case, the reference string is {2, 3, 2, 1, 5, 2, 4, 5, 3, 2, 5, 2}.
+Frames: We have 3 frames available to store pages in memory.
+unordered_set: This is used to keep track of the pages currently in memory. It allows for fast look-up operations to check if a page is already in memory.
+queue: This is used to maintain the order of pages in memory. The page that entered the earliest will be removed when a new page needs to be added to full memory.
+Page Faults: Every time a page is not in memory, we count it as a page fault and replace the oldest page if memory is full.
+Sample Output:
+yaml
+Copy code
+Current pages in memory: 2 
+Current pages in memory: 2 3 
+Current pages in memory: 2 3 
+Current pages in memory: 2 3 1 
+Current pages in memory: 3 1 5 
+Current pages in memory: 1 5 2 
+Current pages in memory: 5 2 4 
+Current pages in memory: 2 4 5 
+Current pages in memory: 4 5 3 
+Current pages in memory: 5 3 2 
+Current pages in memory: 3 2 5 
+Current pages in memory: 2 5 
+Total page faults: 9
+Explanation of Output:
+As the program processes each page in the reference string, it prints the current pages in memory at that point.
+Each time a page is not found in memory, a page fault occurs, and the oldest page in memory is replaced with the new page.
+The total number of page faults in this example is 9.
+Key Points:
+FIFO keeps track of pages in memory using a queue, ensuring that the oldest page is replaced when a new page needs to be loaded.
+The algorithm is simple but not necessarily the most efficient in terms of minimizing page faults.
+
+
+
+
+
+
+
+
+
+
+
+Theory Points for FIFO Page Replacement Algorithm:
+Page Replacement:
+
+Page replacement is necessary when a program accesses a page that is not currently in memory.
+In such a case, one of the pages in memory must be replaced with the new page, and the algorithm decides which page to replace.
+FIFO (First In, First Out):
+
+FIFO is a simple page replacement algorithm that maintains a queue of pages in memory.
+The page that enters the memory first (oldest page) will be replaced first when a new page is accessed.
+It follows the basic principle of queue data structure: First In, First Out.
+Working of FIFO:
+
+FIFO uses a queue to track the order in which pages are brought into memory.
+When a page is accessed:
+If the page is not in memory, it's added to the memory, and a page fault occurs.
+If memory is full, the oldest page (the one at the front of the queue) is removed and replaced with the new page.
+The process continues for each page reference in the reference string.
+Page Fault:
+
+A page fault occurs when the page being accessed is not found in memory.
+The algorithm replaces an existing page with the new page and counts it as a page fault.
+The number of page faults reflects the efficiency of the algorithm. More page faults mean more memory accesses, which can slow down the system.
+Memory Frames:
+
+Memory frames are the fixed number of slots available to hold pages in memory.
+In the given example, there are 3 memory frames, meaning only 3 pages can be held in memory at a time.
+FIFO Example:
+
+The algorithm works as follows:
+A page reference (e.g., 2, 3, 2, 1, 5, ...) is made.
+If the page is not in memory, it will be inserted.
+If memory is full, the page that entered the memory first (the one at the front of the queue) is removed and replaced by the new page.
+This continues for all page references in the string.
+Advantages of FIFO:
+
+Simplicity: FIFO is easy to implement and understand.
+Low Overhead: It requires minimal computation compared to more advanced algorithms.
+Disadvantages of FIFO:
+
+Belady's Anomaly: FIFO may not always produce the optimal number of page faults. In some cases, increasing the number of frames can actually increase the number of page faults.
+Non-optimality: FIFO does not consider the future use of pages and may replace pages that will be needed soon, leading to unnecessary page faults.
+Applications:
+
+FIFO is typically used in simple systems or as a starting point for more complex page replacement algorithms.
+It is often useful in situations where simplicity and low overhead are preferred over optimization.
+Optimizing FIFO:
+
+While FIFO is simple, it is not the most efficient algorithm in terms of minimizing page faults.
+More complex algorithms like Optimal Page Replacement, LRU (Least Recently Used), and LFU (Least Frequently Used) can potentially offer fewer page faults, though they are more difficult to implement.
+Use in Real-World Systems:
+
+FIFO can be useful in embedded systems where memory is limited, and the simplicity of the algorithm provides sufficient performance.
+More advanced algorithms are typically preferred in general-purpose operating systems for better performance.

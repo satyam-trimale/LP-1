@@ -1,0 +1,89 @@
+To simulate Shortest Job First (SJF) - Preemptive scheduling (also known as Shortest Remaining Time First), we'll create a program in C++ that schedules processes based on their burst time, with the shortest remaining burst time receiving priority. In the preemptive version of SJF, the currently running process can be interrupted if a new process arrives with a shorter remaining burst time.
+
+Theory Points for Preemptive SJF Scheduling
+Definition of Preemptive SJF (Shortest Job First):
+
+SJF is a CPU scheduling algorithm where the process with the smallest burst time is selected for execution first.
+In the preemptive version (also known as Shortest Remaining Time First), a new process with a smaller burst time can preempt the currently running process.
+Characteristics:
+
+Preemptive: Processes can be interrupted, allowing a new process with a shorter burst time to take over the CPU.
+Dynamic Scheduling: Scheduling decisions are made whenever a new process arrives or a process finishes execution.
+Advantages:
+
+Minimizes the average waiting time compared to other algorithms, especially when burst times are varied.
+Efficient for interactive environments where shorter processes are more common.
+Disadvantages:
+
+Requires accurate knowledge of burst times in advance.
+Starvation can occur for processes with longer burst times if shorter processes keep arriving.
+Terminology:
+
+Arrival Time (AT): The time at which a process arrives and is ready to execute.
+Burst Time (BT): The total CPU time required by the process.
+Completion Time (CT): The time at which a process finishes execution.
+Turnaround Time (TAT): Total time taken from arrival to completion (TAT = CT - AT).
+Waiting Time (WT): Time spent waiting in the queue (WT = TAT - BT).
+Goal:
+
+To minimize the average waiting time and average turnaround time by dynamically choosing the process with the shortest remaining burst time.
+
+
+
+
+
+
+
+
+Program to Simulate Preemptive SJF Scheduling in C++
+Here’s the code to implement the preemptive SJF scheduling for the given processes:
+
+Processes:
+P1 with Arrival Time = 10, Burst Time = 2
+P2 with Arrival Time = 0, Burst Time = 10
+P3 with Arrival Time = 8, Burst Time = 4
+P4 with Arrival Time = 5, Burst Time = 5
+
+
+
+
+
+
+Explanation of the Code
+Process Structure:
+
+Each Process has attributes for arrival time, burst time, remaining time, completion time, turnaround time, waiting time, and a flag (isCompleted) to mark if it has finished executing.
+Sorting by Arrival Time:
+
+Processes are initially sorted by arrival time to help with scheduling decisions.
+SJF Preemptive Calculation (calculateSJFPreemptive function):
+
+A loop is used to simulate the CPU execution timeline until all processes are completed.
+At each time unit (currentTime), the process with the shortest remaining time is selected from those that have arrived.
+If no processes are ready, the currentTime is incremented until one arrives.
+Each selected process runs for one unit of time, and remainingTime is decremented.
+When a process’s remainingTime becomes zero, it is marked complete, and its completionTime, turnaroundTime, and waitingTime are calculated.
+Display Function:
+
+The results, including arrival time, burst time, completion time, turnaround time, and waiting time, are displayed in a table format for each process.
+Sample Output
+The program will output a table similar to this:
+
+arduino
+Copy code
+Process	AT	BT	CT	TAT	WT
+P1	10	2	12	2	0
+P2	0	10	17	17	7
+P3	8	4	15	7	3
+P4	5	5	13	8	3
+Process P1:
+
+Arrival Time (AT): 10
+Burst Time (BT): 2
+Completion Time (CT): 12
+Turnaround Time (TAT): 2 (12 - 10)
+Waiting Time (WT): 0 (2 - 2)
+Process P2, Process P3, and Process P4 are similarly calculated, showing how preemptive SJF schedules each to minimize waiting and turnaround times.
+
+Conclusion
+This program simulates the Preemptive Shortest Job First (SJF) scheduling algorithm, demonstrating the scheduling order, turnaround time, and waiting time for each process. By dynamically selecting the process with the shortest remaining burst time, this algorithm effectively minimizes the average waiting time, though it may introduce some overhead in managing the preemptions.

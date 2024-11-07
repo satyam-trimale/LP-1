@@ -1,0 +1,107 @@
+Theory Points
+Definition of FCFS (First-Come, First-Served):
+
+FCFS is one of the simplest CPU scheduling algorithms, where the process that arrives first is served first.
+It operates in a non-preemptive mode, meaning once a process starts executing, it runs to completion before the next process begins.
+Characteristics of FCFS:
+
+Non-Preemptive: Once a process has the CPU, it cannot be interrupted until it finishes.
+Scheduling Order: Based solely on the arrival time of processes.
+Fairness: Processes are handled in the order they arrive, giving it a "fair" appearance.
+Advantages:
+
+Simple to understand and implement.
+Predictable as it processes requests in the order they arrive.
+Disadvantages:
+
+Convoy Effect: A long process may delay the execution of all other processes, leading to inefficient CPU utilization.
+High Waiting Time: Can result in higher average waiting time, especially when shorter processes arrive after longer ones.
+Terminology:
+
+Arrival Time (AT): The time at which a process arrives and is ready to execute.
+Burst Time (BT): The total CPU time required by the process to complete.
+Completion Time (CT): The time at which a process finishes execution.
+Turnaround Time (TAT): The total time taken from arrival to completion (TAT = CT - AT).
+Waiting Time (WT): The total time a process spends waiting in the ready queue (WT = TAT - BT).
+Formulae:
+
+Turnaround Time (TAT): TAT = Completion Time - Arrival Time
+Waiting Time (WT): WT = Turnaround Time - Burst Time
+Goal:
+
+The objective of FCFS scheduling is to minimize the average waiting time and average turnaround time of all processes.
+
+
+
+
+
+
+
+
+
+
+FCFS Scheduling Program in C++
+Here’s the C++ program to simulate FCFS scheduling for the given processes:
+
+Processes:
+P1 with Arrival Time = 10, Burst Time = 2
+P2 with Arrival Time = 0, Burst Time = 10
+P3 with Arrival Time = 8, Burst Time = 4
+P4 with Arrival Time = 5, Burst Time = 5
+
+
+
+
+
+
+Explanation of the Code
+Data Structure (Process):
+
+We define a Process structure to hold the relevant attributes for each process: name, arrival time (AT), burst time (BT), completion time (CT), waiting time (WT), and turnaround time (TAT).
+Sorting by Arrival Time:
+
+Since FCFS is based on the arrival time, we sort the processes vector in ascending order of arrivalTime.
+Calculate Function (calculateFCFS):
+
+This function calculates the Completion Time (CT), Turnaround Time (TAT), and Waiting Time (WT) for each process.
+It updates currentTime based on each process’s completion time to keep track of when the CPU will be free for the next process.
+Displaying Results (displayResults):
+
+This function outputs the scheduling results in a tabular format, showing each process's AT, BT, CT, TAT, and WT.
+
+
+
+
+
+
+
+
+
+
+
+Sample Output
+The program will output a table similar to this:
+
+arduino
+Copy code
+Process AT   BT   CT   TAT  WT
+P2      0    10   10   10   0
+P4      5    5    15   10   5
+P3      8    4    19   11   7
+P1      10   2    21   11   9
+Process P2:
+
+Arrival Time (AT): 0
+Burst Time (BT): 10
+Completion Time (CT): 10 (starts immediately since it’s the first to arrive)
+Turnaround Time (TAT): 10 - 0 = 10
+Waiting Time (WT): 10 - 10 = 0
+Process P4:
+
+Arrival Time (AT): 5
+Burst Time (BT): 5
+Completion Time (CT): 15 (starts after P2 finishes at time 10)
+Turnaround Time (TAT): 15 - 5 = 10
+Waiting Time (WT): 10 - 5 = 5
+Process P3 and Process P1 calculations follow similarly.
+
