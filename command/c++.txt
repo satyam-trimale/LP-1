@@ -1,0 +1,14 @@
+c++ :
+
+g++ program.cpp -o program
+./program
+
+
+
+java :
+ 
+javac Program.java
+java Program
+
+
+python3 program.py
